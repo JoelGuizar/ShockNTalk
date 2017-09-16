@@ -3,9 +3,8 @@ const http = require('http');
 const express = require('express');
 const app = express();
 const socketIO = require('socket.io');
-
+const {generateMessage} = require('./utils/message');
 console.log(__dirname + '/../public');
-console.log();
 
 
 const PORT = process.env.PORT || 3000;
@@ -34,18 +33,22 @@ io.on('connection', (socket) => {
   //   text: 'Hey, oh ya!',
   //   createdAt: 444
   // })
+  socket.emit('newMessage', generateMessage('Admin', 'Welcome'))
+  socket.broadcast.emit('newMessage', generateMessage('Admin', 'New User Joined!'))
 
-  socket.on('createEmail', (newEmail) =>{
-    console.log('createEmail', newEmail);
-  })
-
-  socket.on('createMessage', (newMessage) =>{
-    console.log('createMessage', newMessage);
-
+  socket.on('createMessage', (message) =>{
+    console.log('createMessage', message);
+    io.emit('newMessage', generateMessage(message.from, message.text))
     //io.emit emits to every single connection.
-    io.emit('newMessage', {
-      from: newMessage.from,
-      text: newMessage.text,
+    // io.emit('newMessage', {
+    //   from: newMessage.from,
+    //   text: newMessage.text,
+    //   createdAt: new Date().getTime()
+    // })
+
+    socket.broadcast.emit('newMessage', {
+      from: message.from,
+      text: message.text,
       createdAt: new Date().getTime()
     })
   })

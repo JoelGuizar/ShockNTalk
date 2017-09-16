@@ -1,7 +1,7 @@
 const socket = io();
 
 //event name is connect.
-socket.on('connect', function (){
+socket.on('connect', function (user){
   console.log('Connected to server.');
 
   // socket.emit('createEmail', {
