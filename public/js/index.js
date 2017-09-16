@@ -28,5 +28,5 @@ socket.on('newEmail', function (email){
 })
 
 socket.on('newMessage', function(message){
-  console.log(`Message from ${email.from}`, message);
+  console.log(`Message from ${message.from}`, message);
 })
