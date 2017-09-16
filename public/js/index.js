@@ -4,15 +4,15 @@ const socket = io();
 socket.on('connect', function (){
   console.log('Connected to server.');
 
-  socket.emit('createEmail', {
-    to: 'joeljoel@joel.com',
-    text: 'Hey. This is Andrew'
-  })
-
-  socket.emit('createMessage', {
-    to: 'mary',
-    text: 'hey hey hey'
-  })
+  // socket.emit('createEmail', {
+  //   to: 'joeljoel@joel.com',
+  //   text: 'Hey. This is Andrew'
+  // })
+  //
+  // socket.emit('createMessage', {
+  //   to: 'mary',
+  //   text: 'hey hey hey'
+  // })
 });
 
 //event name is disconnect
@@ -28,5 +28,5 @@ socket.on('newEmail', function (email){
 })
 
 socket.on('newMessage', function(message){
-  console.log(`Message from ${message.from}`, message);
+  console.log(`Message from ${message.from}`, message.text);
 })

@@ -23,25 +23,31 @@ io.on('connection', (socket) => {
   //must match the client side event, in this case NewEmail
   //since it's not a listener, no callback
   //the second argument is the data you want to send across
-  socket.emit('newEmail', {
-    from: 'mike@example.com',
-    text: 'Hey. What is going on.',
-    createdAt: 123
-  })
+  // socket.emit('newEmail', {
+  //   from: 'mike@example.com',
+  //   text: 'Hey. What is going on.',
+  //   createdAt: 123
+  // })
 
-  socket.emit('newMessage', {
-    from: 'joel',
-    text: 'Hey, oh ya!',
-    createdAt: 444
-  })
+  // socket.emit('newMessage', {
+  //   from: 'joel',
+  //   text: 'Hey, oh ya!',
+  //   createdAt: 444
+  // })
 
   socket.on('createEmail', (newEmail) =>{
     console.log('createEmail', newEmail);
   })
 
   socket.on('createMessage', (newMessage) =>{
-    newMessage.createdAt = 123123123
     console.log('createMessage', newMessage);
+
+    //io.emit emits to every single connection.
+    io.emit('newMessage', {
+      from: newMessage.from,
+      text: newMessage.text,
+      createdAt: new Date().getTime()
+    })
   })
 
 
