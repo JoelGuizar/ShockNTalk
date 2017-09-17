@@ -19,26 +19,18 @@ app.use(express.static(publicPath)) //static middleware for public folder
 io.on('connection', (socket) => {
   console.log('New user connected.');
 
-  //must match the client side event, in this case NewEmail
+  //emit/on must match the client side event, in this case NewEmail
   //since it's not a listener, no callback
   //the second argument is the data you want to send across
-  // socket.emit('newEmail', {
-  //   from: 'mike@example.com',
-  //   text: 'Hey. What is going on.',
-  //   createdAt: 123
-  // })
 
-  // socket.emit('newMessage', {
-  //   from: 'joel',
-  //   text: 'Hey, oh ya!',
-  //   createdAt: 444
-  // })
   socket.emit('newMessage', generateMessage('Admin', 'Welcome'))
   socket.broadcast.emit('newMessage', generateMessage('Admin', 'New User Joined!'))
 
-  socket.on('createMessage', (message) =>{
+  socket.on('createMessage', (message, callback) =>{
     console.log('createMessage', message);
     io.emit('newMessage', generateMessage(message.from, message.text))
+    callback('This is from the server'); // will launch Event acknowledgement
+
     //io.emit emits to every single connection.
     // io.emit('newMessage', {
     //   from: newMessage.from,
