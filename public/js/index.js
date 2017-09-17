@@ -18,4 +18,8 @@ socket.on('newMessage', function(message){
 socket.emit('createMessage', {
   from: 'Frank',
   text: 'Hi'
+
+  // a second argument is a callback function, which will work as the acknowledgement
+}, function(){
+
 })
