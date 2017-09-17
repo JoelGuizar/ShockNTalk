@@ -7,7 +7,6 @@ describe('generateMessage', () => {
     let text = 'hello';
     let message = generateMessage(from, text);
 
-    expect(5).toBe(5);
     expect(message.createdAt).toBeA('number');
     expect(message).toInclude({from, text});
   })
