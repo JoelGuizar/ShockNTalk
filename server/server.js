@@ -31,18 +31,22 @@ io.on('connection', (socket) => {
     io.emit('newMessage', generateMessage(message.from, message.text))
     callback('This is from the server'); // will launch Event acknowledgement
 
-    //io.emit emits to every single connection.
-    // io.emit('newMessage', {
-    //   from: newMessage.from,
-    //   text: newMessage.text,
+    // //io.emit emits to every single connection.
+    // // io.emit('newMessage', {
+    // //   from: newMessage.from,
+    // //   text: newMessage.text,
+    // //   createdAt: new Date().getTime()
+    // // })
+    //
+    // socket.broadcast.emit('newMessage', {
+    //   from: message.from,
+    //   text: message.text,
     //   createdAt: new Date().getTime()
     // })
+  })
 
-    socket.broadcast.emit('newMessage', {
-      from: message.from,
-      text: message.text,
-      createdAt: new Date().getTime()
-    })
+  socket.on('createLocationMessage', (coords) =>{
+    io.emit('newMessage', generateMessage('Admin', `${coords.latitude}, ${coords.longitude}`))
   })
 
 
