@@ -3,7 +3,7 @@ const http = require('http');
 const express = require('express');
 const app = express();
 const socketIO = require('socket.io');
-const {generateMessage} = require('./utils/message');
+const {generateMessage, generateLocationMessage} = require('./utils/message');
 console.log(__dirname + '/../public');
 
 
@@ -11,7 +11,7 @@ const PORT = process.env.PORT || 3000;
 const publicPath = path.join(__dirname, '../public')
 const server = http.createServer(app) //needs the og method
 const io = socketIO(server); //calls it on the http server, we get back the websocket server
-
+const googleMapURI = 'https://www.google.com/maps?q='
 
 app.use(express.static(publicPath)) //static middleware for public folder
 
@@ -34,7 +34,7 @@ io.on('connection', (socket) => {
   })
 
   socket.on('createLocationMessage', (coords) =>{
-    io.emit('newMessage', generateMessage('Admin', `${coords.latitude}, ${coords.longitude}`))
+    io.emit('newLocationMessage', generateLocationMessage('Admin', coords.latitude, coords.longitude))
   })
 
 

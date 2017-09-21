@@ -6,4 +6,12 @@ const generateMessage = (from, text) => {
   };
 };
 
+const generateLocationMessage = (from, latitude, longitude) => {
+  return {
+    from,
+    url: ``,
+    createdAt: new Date().getTime()
+  }
+}
+
 module.exports = {generateMessage};
