@@ -28,6 +28,22 @@ socket.emit('createMessage', {
   console.log(data);
 })
 
+socket.on('newLocationMessage', function(message){
+  var li = $('<li></li>');
+  //with target set to blank, it'll open in a new window
+  var a = $('<a target="_blank">My current location</a>')
+
+  //instead of writing this all in template strings, we use the attribute methods
+  //this prevents malicious people from injecting code straight in. So, we do it
+  //separately like below
+  li.text(`${message.from}: `);
+  a.attr('href', message.url);
+  li.append(a);
+  $('#messages').append(li);
+
+})
+
+
 $('#message-form').on('submit', function(e){
   e.preventDefault(); //prevents default behavior aka page refresh
 
