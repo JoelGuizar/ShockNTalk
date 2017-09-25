@@ -11,6 +11,7 @@ socket.on('disconnect', function (){
   console.log('Disconnected from server.');
 })
 
+//event listener on client side
 socket.on('newMessage', function(message){
   var li = $('<li> </li>');
   li.text(`${message.from}: ${message.text}`);
@@ -18,16 +19,18 @@ socket.on('newMessage', function(message){
   $('#messages').append(li);
 })
 
-socket.emit('createMessage', {
-  from: 'Frank',
-  text: 'Hi'
+//example emitter
+// socket.emit('createMessage', {
+//   from: 'Frank',
+//   text: 'Hi'
+//
+//   // a second argument is a callback function, which will work as the acknowledgement
+// }, function(data){
+//   console.log('Got it!');
+//   console.log(data);
+// })
 
-  // a second argument is a callback function, which will work as the acknowledgement
-}, function(data){
-  console.log('Got it!');
-  console.log(data);
-})
-
+//event listener for Admin Location message
 socket.on('newLocationMessage', function(message){
   var li = $('<li></li>');
   //with target set to blank, it'll open in a new window
@@ -43,7 +46,7 @@ socket.on('newLocationMessage', function(message){
 
 })
 
-
+//simple form for chat message
 $('#message-form').on('submit', function(e){
   e.preventDefault(); //prevents default behavior aka page refresh
 
