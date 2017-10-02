@@ -62,6 +62,8 @@ $('#message-form').on('submit', function(e){
 
 var locationButton = $('#send-location');
 
+
+//navigator geolocation is a browser method, responds in coordinates.
 locationButton.on('click', function(){
   if (!navigator.geolocation){
     return alert('Geolocation not supported by your browser')
